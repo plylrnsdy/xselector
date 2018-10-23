@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "out",
+
+        "module": "commonjs",
+        "strict": true,
+        "target": "esnext",
+        "experimentalDecorators": true,
+
+        "sourceMap": true,
+
+        "removeComments": true
+    },
+    "include": [
+        "examples/**/*.ts",
+        "src/**/*.ts",
+        "test/**/*.ts"
+    ],
+    "exclude": [
+        ".vscode",
+        "node_modules",
+        "out"
+    ]
+}
