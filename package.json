@@ -1,14 +1,15 @@
 {
   "name": "xselector",
-  "description": "",
+  "description": "Use CSS Selector, XPath 1.0 or RegExp select data from HTML.",
   "author": "plylrnsdy",
   "version": "0.1.0",
   "keywords": [
     "selector",
+    "css select",
     "select",
     "xpath"
   ],
-  "main": "out/src/main.js",
+  "main": "out/src/Selector.js",
   "scripts": {
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",

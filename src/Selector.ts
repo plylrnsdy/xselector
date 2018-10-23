@@ -2,7 +2,6 @@
 import css2xpath = require('css2xpath');
 import { select1, select, SelectedValue } from 'xpath';
 import { Options, DOMParser } from 'xmldom';
-import { isString } from 'util';
 
 
 const ELEMENT: { [type: number]: boolean } = { 1: true, 9: true }
@@ -14,29 +13,26 @@ function isNode(selected: any): selected is Node {
 function isElement(selected: Node): selected is Element {
     return ELEMENT[selected.nodeType];
 }
-function isAttr(selected: Node): selected is Attr {
-    return selected.nodeType === 2;
-}
 
 function _attr(name: string, value: any) {
     if (!isNode(value) || !isElement(value))
         throw new Error('Can not select "Atrr" from the object not "Element".');
 
     let attr = select1('./@' + name, value) as Attr | undefined;
-    return attr && attr.nodeValue;
+    return attr ? attr.nodeValue || '' : '';
 }
 function _text(value: any) {
-    return value && select1('string(.)', value);
+    return value ? select1('string(.)', value) as string : '';
 }
 function _html(value: any) {
     return value.toString().trim();
 }
-function _value(value: any) {
+function _value(value: any): string | number | boolean {
     return isNode(value)
         ? isElement(value)
             ? value.toString()
-            : value.nodeValue
-        : isString(value) ? value : value.toString();
+            : value.nodeValue || ''
+        : value;
 }
 function toRegExp(re: string | RegExp) {
     return typeof re === 'string' ? new RegExp(re) : re;
@@ -47,7 +43,7 @@ function _regexp(value: any, re: RegExp, searchText: boolean) {
     return match && (match[1] || match[0]);
 }
 
-class SelectorList {
+export class SelectorList {
 
     type: string | undefined
     exp: string | RegExp | undefined
@@ -78,29 +74,29 @@ class SelectorList {
         return selected;
     }
 
-    attr(name: string) {
-        return this._selected[0] && _attr(name, this._selected[0]);
+    attr(name: string): string {
+        return this._selected[0] ? _attr(name, this._selected[0]) : '';
     }
-    attrs(name: string) {
+    attrs(name: string): string[] {
         return this._selected.map(value => _attr(name, value));
     }
-    text() {
-        return this._selected[0] && _text(this._selected[0]);
+    text(): string {
+        return this._selected[0] ? _text(this._selected[0]) : '';
     }
-    texts() {
+    texts(): string[] {
         return this._selected.map(_text);
     }
-    html() {
-        return this._selected[0] && _html(this._selected[0]);
+    html(): string {
+        return this._selected[0] ? _html(this._selected[0]) : '';
     }
-    htmls() {
+    htmls(): string[] {
         return this._selected.map(_html);
     }
 
-    value() {
+    value(): string | number | boolean {
         return this._selected[0] && _value(this._selected[0]);
     }
-    values() {
+    values(): Array<string | number | boolean> {
         return this._selected.map(_value);
     }
 
@@ -114,7 +110,7 @@ class SelectorList {
         return this._selected.map(value => _regexp(value, re, searchText));
     }
 
-    toString() {
+    toString(): string {
         let value = this._selected[0];
         let value_type = isNode(value) ? NODE_TYPES[value.nodeType] : typeof value;
         return `<Selector (${value_type}) ${this.type}=${this.exp}>`;
