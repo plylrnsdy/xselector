@@ -1,7 +1,7 @@
 // @ts-ignore
 import css2xpath = require('css2xpath');
 import { select1, select, SelectedValue } from 'xpath';
-import { Options, DOMParser } from 'xmldom';
+import { DOMParser } from 'xmldom';
 
 
 const ELEMENT: { [type: number]: boolean } = { 1: true, 9: true }
@@ -117,17 +117,30 @@ export class SelectorList {
     }
 }
 
+interface XmlDomOptions {
+    locator?: any;
+    errorHandler?: ErrorHandlerFunction | ErrorHandlerObject;
+}
+interface ErrorHandlerFunction {
+    (level: string, msg: any): any;
+}
+interface ErrorHandlerObject {
+    warning?: (msg: any) => any;
+    error?: (msg: any) => any;
+    fatalError?: (msg: any) => any;
+}
+
 function noop() { }
 
 const defaultOptions = { errorHandler: { warning: noop } };
 
 export class Selector extends SelectorList {
 
-    constructor(html: string, options?: Options) {
+    constructor(html: string, options?: XmlDomOptions) {
         super([new DOMParser(options || defaultOptions).parseFromString(html)]);
     }
 }
 
-export function load(xml: string, options?: Options) {
+export function load(xml: string, options?: XmlDomOptions) {
     return new Selector(xml, options);
 }

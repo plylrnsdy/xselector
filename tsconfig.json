@@ -5,15 +5,13 @@
 
         "module": "commonjs",
         "strict": true,
-        "target": "esnext",
-        "experimentalDecorators": true,
+        "target": "es6",
 
         "declaration": true,
 
         "removeComments": true
     },
     "include": [
-        "examples/**/*.ts",
         "src/**/*.ts",
         "test/**/*.ts"
     ],

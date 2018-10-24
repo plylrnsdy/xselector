@@ -1,6 +1,6 @@
 # xSelector
 
-Use CSS Selector, XPath 1.0 or RegExp select data from HTML.
+Use CSS Selector, XPath 1.0 or RegExp select data from HTML, inspired by [scrapy](https://github.com/scrapy/scrapy).
 
 ## Install
 

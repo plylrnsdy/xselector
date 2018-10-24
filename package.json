@@ -2,7 +2,7 @@
   "name": "xselector",
   "description": "Use CSS Selector, XPath 1.0 or RegExp select data from HTML.",
   "author": "plylrnsdy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "selector",
     "css select",
