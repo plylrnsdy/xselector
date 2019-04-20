@@ -1,5 +1,7 @@
 # xSelector
 
+[![npm](https://img.shields.io/npm/v/xselector.svg)](https://npmjs.org/package/xselector)
+
 Use CSS Selector, XPath 1.0 or RegExp select data from HTML, inspired by [scrapy](https://github.com/scrapy/scrapy).
 
 ## Install
@@ -48,7 +50,7 @@ extends `SelectorList`.
     - If selected value is string|number|boolean, return itself.
 - SelectorList#`regexp(re [, searchText])`: string
     - `re` string|RegExp: a pattern to match a part of string, if `re` has match groups, return first match group.
-    - `search` boolean: If `true`, its context is Selector#`text()`; If `false`, its context is Selector#`html()`. Default is `false`.
+    - `searchText` boolean: If `true`, its context is Selector#`text()`; If `false`, its context is Selector#`html()`. Default is `false`.
 
 #### operate all selected value
 - SelectorList#`attrs(name)`: string[]

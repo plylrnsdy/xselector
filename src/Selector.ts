@@ -38,7 +38,7 @@ function toRegExp(re: string | RegExp) {
     return typeof re === 'string' ? new RegExp(re) : re;
 }
 function _regexp(value: any, re: RegExp, searchText: boolean) {
-    let text = searchText ? _text(value) : _html(value);
+    let text: string = searchText ? _text(value) : _html(value);
     let match = text && text.match(re);
     return match && (match[1] || match[0]);
 }
